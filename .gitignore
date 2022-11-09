@@ -1,0 +1,13 @@
+obj
+appsettings.json
+*.db
+*.dll
+bin
+
+
+
+
+
+
+
+
