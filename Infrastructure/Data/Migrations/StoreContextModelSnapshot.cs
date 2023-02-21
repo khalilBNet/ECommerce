@@ -41,8 +41,7 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("description")
-                        .IsRequired()
-                        .HasMaxLength(100)
+                        .HasMaxLength(250)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

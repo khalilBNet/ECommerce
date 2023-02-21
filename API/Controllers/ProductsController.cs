@@ -31,5 +31,18 @@ namespace API.Controllers
         {
             return await _repo.GetProductByIdAsync(id);
         }
+        [HttpGet("brands")]
+        public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetProductBrands()
+        {
+            // zidna Ok khater jetna erreur 9alik conversion lel IReadOnlylist mayaceptihech w 9bel masta3melnehech heka alech jetnech erreur
+            return Ok(await _repo.GetProductBrandAsync());
+        }
+
+        [HttpGet("types")]
+        public async Task<ActionResult<IReadOnlyList<ProductType>>> GetProductTypes()
+        {
+            // zidna Ok khater jetna erreur 9alik conversion lel IReadOnlylist mayaceptihech w 9bel masta3melnehech heka alech jetnech erreur
+            return Ok(await _repo.GetProductTypeAsync());
+        }
     }
 }
