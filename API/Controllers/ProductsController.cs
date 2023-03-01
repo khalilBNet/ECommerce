@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Dtos;
+using API.Errors;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
@@ -13,9 +14,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ProductsController : ControllerBase
+    public class ProductsController : BaseApiController
     {
         //private readonly IProductRepository _repo;
         private readonly IGenericRepository<Product> _productRepo;
@@ -56,7 +55,12 @@ namespace API.Controllers
             return Ok(_mapper
             .Map<IReadOnlyList<Product>,IReadOnlyList<ProductToReturnDto>>(products));
         }
+        // zedna ProducesResponce type khater fel swagger ui maanech el cas li yebda 404 error
+        // w baad zeda 7assana khater fel swagger jabelna el 404 ema fiha des champs mouch mriglin khater yaarach el type
+        // donc nzidou el type li amelneh
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse) , StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
         {
             var spec = new productsWithTypesAndBrandsSpec(id);
@@ -72,6 +76,7 @@ namespace API.Controllers
                 ProductBrand = product.ProductBrand.Name,
                 ProductType = product.ProductType.Name          
             };*/
+            if(product == null) return NotFound(new ApiResponse(404));
             return _mapper.Map<Product, ProductToReturnDto>(product);
         }
         [HttpGet("brands")]
