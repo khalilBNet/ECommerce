@@ -19,6 +19,7 @@ app.UseStatusCodePagesWithReExecute("/errors/{0}");
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseStaticFiles();
+app.UseCors("CorsPolicy");
 app.UseAuthorization();
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
